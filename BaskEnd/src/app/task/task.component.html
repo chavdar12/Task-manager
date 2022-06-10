@@ -1,0 +1,273 @@
+<app-navigation></app-navigation>
+
+<div *ngIf="showUpdateForm">
+  <mat-card class="update-task-card">
+    <form [formGroup]="updateTaskForm" (ngSubmit)="onUpdateBoard()">
+      <mat-form-field appearance="fill">
+        <input formControlName="title" matInput placeholder="Task title">
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="project" placeholder="Task project">
+          <mat-option *ngFor="let project of allProjects" [value]="project">
+            {{project.title}} {{project.key}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="board" placeholder="Task board">
+          <mat-option *ngFor="let board of allBoards" [value]="board">
+            {{board.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="type" placeholder="Task type">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="status" placeholder="Task status">
+          <mat-option *ngFor="let status of statuses" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <textarea formControlName="description" matInput placeholder="Task description"></textarea>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="reportedBy" placeholder="Reported by">
+          <mat-option *ngFor="let account of allAccounts" [value]="account">
+            {{account.firstName}} {{account.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="assignedTo" placeholder="Assigned to">
+          <mat-option *ngFor="let account of allAccounts" [value]="account">
+            {{account.firstName}} {{account.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="priority" placeholder="Task priority">
+          <mat-option *ngFor="let priority of priorities" [value]="priority">
+            {{priority}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <br>
+
+
+      <mat-form-field appearance="fill">
+        <input formControlName="storyPoints" matInput placeholder="Story points">
+      </mat-form-field>
+
+
+      <br>
+
+
+      <button mat-raised-button>Update</button>
+
+
+    </form>
+  </mat-card>
+</div>
+
+<div>
+  <mat-card class="create-task-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Create Task</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onCreateTask()" [formGroup]="taskCreateForm">
+
+
+        <mat-form-field appearance="fill">
+          <input formControlName="title" matInput placeholder="Task title">
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="project" placeholder="Task project">
+            <mat-option *ngFor="let project of allProjects" [value]="project">
+              {{project.title}} {{project.key}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="board" placeholder="Task board">
+            <mat-option *ngFor="let board of allBoards" [value]="board">
+              {{board.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="type" placeholder="Task type">
+            <mat-option *ngFor="let type of types" [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="status" placeholder="Task status">
+            <mat-option *ngFor="let status of statuses" [value]="status">
+              {{status}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <textarea formControlName="description" matInput placeholder="Task description"></textarea>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="reportedBy" placeholder="Reported by">
+            <mat-option *ngFor="let account of allAccounts" [value]="account">
+              {{account.firstName}} {{account.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="assignedTo" placeholder="Assigned to">
+            <mat-option *ngFor="let account of allAccounts" [value]="account">
+              {{account.firstName}} {{account.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="priority" placeholder="Task priority">
+            <mat-option *ngFor="let priority of priorities" [value]="priority">
+              {{priority}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+
+
+        <mat-form-field appearance="fill">
+          <input formControlName="storyPoints" matInput placeholder="Story points">
+        </mat-form-field>
+
+
+        <br>
+
+
+        <button mat-raised-button>Create</button>
+
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div *ngFor="let task of allTasks">
+  <mat-card class="all-tasks-card">
+    <mat-card-header>
+      <mat-card-title>
+        <label><strong>{{task.title}}</strong></label>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <label><strong>Task Project:</strong> {{task.project.key}} {{task.project.title}}</label><br>
+      <label><strong>Task Board:</strong> {{task.board.name}}</label><br>
+      <label><strong>Task type:</strong> {{task.type}}</label><br>
+      <label><strong>Task status:</strong> {{task.status}}</label><br>
+      <label><strong>Task description:</strong> {{task.description}}</label><br>
+      <label><strong>Task reported by:</strong> {{task.reportedBy.firstName}} {{task.reportedBy.lastName}}</label><br>
+      <label *ngIf="task.assignedTo!==null;else not_assigned"><strong>Task assigned
+        to:</strong> {{task.assignedTo.firstName}} {{task.assignedTo.lastName}}</label><br>
+      <ng-template #not_assigned><strong>Task assigned to:</strong> Not assigned</ng-template>
+      <label><strong>Task priority:</strong> {{task.priority}}</label><br>
+      <label><strong>Task story points:</strong> {{task.storyPoints}}</label><br>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="onSelect(task)" mat-raised-button>Edit</button>
+      <button (click)="onDelete(task.id)" mat-raised-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
