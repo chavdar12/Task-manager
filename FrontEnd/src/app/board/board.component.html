@@ -1,0 +1,98 @@
+<app-navigation></app-navigation>
+
+<div *ngIf="showUpdateForm">
+  <mat-card class="update-board-card">
+    <form (ngSubmit)="onUpdateBoard()" [formGroup]="updateBoardForm">
+      <mat-form-field>
+        <input formControlName="name" matInput placeholder="Board name">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-select formControlName="owner" placeholder="Owner">
+          <mat-option *ngFor="let account of allAccounts" [value]="account">
+            {{account.firstName}} {{account.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-select formControlName="members" multiple placeholder="Members">
+          <mat-option *ngFor="let account of allAccounts" [value]="account">
+            {{account.firstName}} {{account.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button>Update</button>
+    </form>
+  </mat-card>
+</div>
+
+<div>
+  <mat-card class="create-board-card">
+    <mat-card-header>
+      <mat-card-title>
+        Create Board
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onCreateBoard()" [formGroup]="createBoardForm">
+        <mat-form-field appearance="fill">
+          <input formControlName="name" matInput placeholder="Board Name">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="owner" placeholder="Owner">
+            <mat-option *ngFor="let account of allAccounts" [value]="account">
+              {{account.firstName}} {{account.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="members" multiple placeholder="members">
+            <mat-option *ngFor="let account of allAccounts" [value]="account">
+              {{account.firstName}} {{account.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button>Create</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<div *ngFor="let board of allBoards">
+  <mat-card class="all-boards-card">
+    <mat-card-header>
+      <mat-card-title>
+        <label> {{board.name}}</label>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <label><strong>Board owner:</strong> {{board.owner.firstName}} {{board.owner.lastName}}</label><br>
+      <label><strong>Members:</strong>
+        <ul>
+          <li *ngFor="let member of board.members">
+            {{member.firstName}} {{member.lastName}}
+          </li>
+        </ul>
+      </label><br>
+      <label *ngIf="board.tasks.length>0;else no_tasks"><strong>Tasks:</strong>{{board.tasks.length}}</label><br>
+      <ng-template #no_tasks>
+        <label><strong>Tasks:</strong> No tasks assigned</label>
+      </ng-template>
+      <label *ngIf="board.projects.length>0;else no_projects"><strong>Projects:</strong> {{board.projects.length}}
+      </label>
+      <ng-template #no_projects>
+        <label><strong>Projects:</strong> No projects assigned</label>
+      </ng-template>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="onSelect(board)" mat-raised-button>Edit</button>
+      <button (click)="onDelete(board.id)" mat-raised-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

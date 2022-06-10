@@ -1,0 +1,87 @@
+<app-navigation></app-navigation>
+
+<div *ngIf="showUpdateForm">
+  <mat-card class="update-project-card">
+    <mat-card-header>
+      <mat-card-title>
+        Edit Project
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onUpdate()" [formGroup]="updateProjectForm">
+        <mat-form-field>
+          <input formControlName="key" matInput placeholder="Project key">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input formControlName="title" matInput placeholder="Project title">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-select formControlName="owner" placeholder="Project owner">
+            <mat-option *ngFor="let account of allAccounts" [value]="account">
+              {{account.firstName}} {{account.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button>
+          <button mat-raised-button>Update</button>
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div>
+  <mat-card class="create-project-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Create Project</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onCreateProject()" [formGroup]="createProjectForm">
+        <mat-form-field appearance="fill">
+          <input formControlName="key" matInput placeholder="Project key">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <input formControlName="title" matInput placeholder="Project title">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="owner" placeholder="Owner">
+            <mat-option *ngFor="let account of allAccounts" [value]="account">
+              {{account.firstName}} {{account.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button>Create</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div *ngFor="let project of allProjects">
+  <mat-card class="all-projects-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>{{project.title}}</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <label><strong>Key:</strong> {{project.key}}</label><br>
+      <label><strong>Owner:</strong> {{project.owner.firstName}} {{project.owner.lastName}}</label><br>
+      <label *ngIf="project.tasks.length>0;else no_tasks"><strong>Tasks:</strong>{{project.tasks.length}}</label><br>
+      <ng-template #no_tasks>
+        <label><strong>Tasks:</strong> No tasks assigned</label>
+      </ng-template>
+      <mat-card-actions>
+        <button (click)="onSelect(project)" mat-raised-button>Edit</button>
+        <button (click)="onDelete(project.id)" mat-raised-button>Delete</button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</div>

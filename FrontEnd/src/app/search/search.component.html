@@ -1,0 +1,50 @@
+<app-navigation></app-navigation>
+
+<div class="search-div">
+  <form (ngSubmit)="onSearch()" [formGroup]="searchForm">
+    <mat-form-field>
+      <input formControlName="title" matInput placeholder="Search">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select formControlName="type" placeholder="Type">
+        <mat-option *ngFor="let type of types" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select formControlName="assignedTo" placeholder="Assigned to">
+        <mat-option *ngFor="let task of allTasks" [value]="task.assignedTo">
+          {{task.assignedTo.firstName}} {{task.assignedTo.lastName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button>Search</button>
+  </form>
+</div>
+
+<div *ngFor="let task of searchResults">
+  <mat-card class="all-tasks-card">
+    <mat-card-header>
+      <mat-card-title>
+        <label><strong>{{task.title}}</strong></label>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <label><strong>Task Project:</strong> {{task.project.key}} {{task.project.title}}</label><br>
+      <label><strong>Task Board:</strong> {{task.board.name}}</label><br>
+      <label><strong>Task type:</strong> {{task.type}}</label><br>
+      <label><strong>Task status:</strong> {{task.status}}</label><br>
+      <label><strong>Task description:</strong> {{task.description}}</label><br>
+      <label><strong>Task reported by:</strong> {{task.reportedBy.firstName}} {{task.reportedBy.lastName}}</label><br>
+      <label *ngIf="task.assignedTo!==null;else not_assigned"><strong>Task assigned
+        to:</strong> {{task.assignedTo.firstName}} {{task.assignedTo.lastName}}</label><br>
+      <ng-template #not_assigned><strong>Task assigned to:</strong> Not assigned</ng-template>
+      <label><strong>Task priority:</strong> {{task.priority}}</label><br>
+      <label><strong>Task story points:</strong> {{task.storyPoints}}</label><br>
+    </mat-card-content>
+  </mat-card>
+</div>
